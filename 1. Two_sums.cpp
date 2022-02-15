@@ -54,3 +54,49 @@ class Solution {
     return ans;
     }
 };
+
+
+//Slightly better solution using Unordered HashMaps
+#include<unordered_map>
+
+class Solution {
+
+    public:
+    vector<int> twoSum(vector<int>& nums, int target) 
+    {
+    
+    vector<int> ans;
+    unordered_map<int,int> umap;
+    bool flag1 =false;
+    bool flag2 =false;
+
+    for(int j=nums.size()-1; j>=0;j--)  //Putting the values into an unordered set (Hash Set) //O(n)
+    {
+        umap[nums[j]]=j;
+    }
+
+    for(int k =0; k<nums.size();k++)  //O(n)
+    {
+        if(umap.count(target-nums[k])==1 && k!=umap[target-nums[k]])  //O(1)
+        {
+             flag1=true;
+             ans.push_back(k);
+             break;
+        }
+    }
+
+    if(flag1==true)
+    {
+        for(int l=0;l<nums.size();l++)  //O(n)
+        {
+            if(nums[l] == target-nums[ans[0]])
+            {
+            ans.push_back(l);
+            break;
+            } 
+        }
+    }
+
+    return ans;
+    }
+};
